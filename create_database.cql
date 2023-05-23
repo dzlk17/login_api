@@ -8,3 +8,6 @@ CREATE TABLE IF NOT EXISTS user_auth.users_list (
   password_hash text,
   PRIMARY KEY (user_id)
 );
+
+INSERT INTO user_auth.users_list (user_id, email, password_hash)
+    VALUES (uuid(), 'jannowak@gmail.com', '1234');
