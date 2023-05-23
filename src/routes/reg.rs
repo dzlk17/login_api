@@ -1,20 +1,13 @@
 use std::sync::Arc;
 use axum::{Json, http::StatusCode, response::{Response, IntoResponse}};
 use scylla::Session;
-use serde::Deserialize;
 use axum::extract::State;
-
-///Struct to change json into struct stores user data.
-#[derive(Deserialize)]
-pub struct User{
-    email: String,
-    password: String,
-}
+use super::User;
 
 ///Endpoint for user registration
 /// 
 /// # Arguments
-/// *state function get established session - connection to database
+/// *state - function get established session - connection to database
 /// *user - data passed by user during registration
 /// 
 /// Function check if email exists in database, and if not, creates new user in database. Returns suitable StatusCode, depends on situation.
