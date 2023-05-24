@@ -2,6 +2,7 @@ mod result;
 mod db;
 mod routes;
 mod auth;
+mod error;
 
 use std::sync::Arc;
 use crate::result::Result;
