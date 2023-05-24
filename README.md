@@ -18,8 +18,8 @@
      SECRET_KEY="mysecretkey"`
   5. Run docker with database:  
     `docker compose up -d`  
-  6. Connect with database:
-    `docker exec -it some-scylla cqlsh --username <name> --password <password>
+  6. Connect with database:  
+    `docker exec -it some-scylla cqlsh --username <name> --password <password>`
   7. Create keyspace and table (code from database_initialization.cql)  
   8. Run the application:  
     `cargo run`
