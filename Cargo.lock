@@ -1298,6 +1298,7 @@ dependencies = [
  "rust-argon2",
  "scylla",
  "serde",
+ "serde_json",
  "tokio",
  "tower-http",
 ]
