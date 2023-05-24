@@ -1,12 +1,11 @@
 #[path = "./user.rs"]
 mod user;
+
 use std::sync::Arc;
 use axum::{Json, http::StatusCode, response::{Response, IntoResponse}};
 use scylla::Session;
 use axum::extract::State;
-use user::{User};
-
-use self::user::hash_password;
+use user::{User, hash_password};
 
 ///Endpoint for user registration
 /// 

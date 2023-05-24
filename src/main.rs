@@ -3,7 +3,6 @@ mod db;
 mod routes;
 
 use std::sync::Arc;
-
 use crate::result::Result;
 use db::create_session;
 use routes::create_routes;

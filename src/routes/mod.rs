@@ -1,7 +1,7 @@
 mod reg;
 mod log;
-use std::sync::Arc;
 
+use std::sync::Arc;
 use axum::{Router, routing::post};
 use reg::reg;
 use log::log;

@@ -6,7 +6,6 @@ use axum::{http::StatusCode, extract::State, Json, response::{Response, IntoResp
 use scylla::Session;
 use user::{verify_password, User};
 
-
 ///Endpoint for user login
 /// 
 /// ## Arguments
