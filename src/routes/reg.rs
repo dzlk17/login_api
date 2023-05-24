@@ -1,12 +1,16 @@
+#[path = "./user.rs"]
+mod user;
 use std::sync::Arc;
 use axum::{Json, http::StatusCode, response::{Response, IntoResponse}};
 use scylla::Session;
 use axum::extract::State;
-use super::User;
+use user::{User};
+
+use self::user::hash_password;
 
 ///Endpoint for user registration
 /// 
-/// # Arguments
+/// ## Arguments
 /// *state - function get established session - connection to database
 /// *user - data passed by user during registration
 /// 
@@ -27,7 +31,7 @@ pub async fn reg(State(state): State<Arc<Session>>, Json(user): Json<User>) -> R
             return (StatusCode::EXPECTATION_FAILED, error.to_string()).into_response()
         }
     }
-    let query = format!("INSERT INTO user_auth.users_list (user_id, email, password_hash) VALUES (uuid(), '{}', '{}')", new_user.email, new_user.password);
+    let query = format!("INSERT INTO user_auth.users_list (user_id, email, password_hash) VALUES (uuid(), '{}', '{}')", new_user.email, hash_password(&new_user.password));
     match state.query(query, ()).await {
         Ok(_res) =>{
             return (StatusCode::CREATED, "New user added to database").into_response()
