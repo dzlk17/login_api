@@ -25,6 +25,6 @@
     `cargo run`
     
  ## Environment setup
-   Project created in codespace in Visual Studio Code with extensions: Docker and Thunder Client.
+   Project created in github codespace in Visual Studio Code with extensions: Docker and Thunder Client.
   
   ![image](https://github.com/dzlk17/login_api/assets/105115971/7c53bdf2-8374-4336-a218-df5947ae7114)
