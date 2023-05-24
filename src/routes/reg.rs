@@ -14,8 +14,7 @@ use crate::error::AppError;
 /// 
 /// Function check if email exists in database, and if not, creates new user in database. Returns Result with suitable message or error, depends on situation.
 pub async fn reg(State(state): State<Arc<Session>>, Json(user): Json<User>) -> Result<Json<Value>, AppError> {
-    let new_user: Json<User> = Json(user);
-    let query = format!("SELECT COUNT(*) FROM user_auth.users_list where email = '{}';", new_user.email);
+    let query = format!("SELECT COUNT(*) FROM user_auth.users_list where email = '{}';", user.email);
     let query_result = state.query(query, ()).await.map_err(|err| { dbg!(err); AppError::InternalServerError})?;
     for row in query_result.rows().map_err(|err| { dbg!(err); AppError::InternalServerError})?{
         let val = row.into_typed::<(i64,)>().map_err(|err| { dbg!(err); AppError::InternalServerError})?;
@@ -23,7 +22,7 @@ pub async fn reg(State(state): State<Arc<Session>>, Json(user): Json<User>) -> R
             return Err(AppError::UserAlreadyExists);
         }
     }
-    let query = format!("INSERT INTO user_auth.users_list (user_id, email, password_hash) VALUES (uuid(), '{}', '{}')", new_user.email, hash_password(&new_user.password));
-    let _query_result = state.query(query, ()).await.map_err(|err| { dbg!(err); AppError::InternalServerError})?;
+    let query = format!("INSERT INTO user_auth.users_list (user_id, email, password_hash) VALUES (uuid(), '{}', '{}')", user.email, hash_password(&user.password));
+    state.query(query, ()).await.map_err(|err| { dbg!(err); AppError::InternalServerError})?;
     Ok(Json(json!({ "message": "New user added to database" })))
 }

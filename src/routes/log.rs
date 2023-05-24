@@ -17,17 +17,16 @@ use crate::auth::{Claims, get_timestamp, Keys};
 /// Function checks if email exists in database and if password is correct, and then returns Result with proper message or error. 
 /// If the user manages to log in function returns token. 
 pub async fn log(State(state): State<Arc<Session>>, Json(user): Json<User>) -> Result<Json<Value>, AppError>{
-    let new_user: Json<User> = Json(user);
     // secret_key should be generate by server
     let secret_key = dotenv!("SECRET_KEY");
     let key = Keys::new(secret_key.as_bytes());
-    let query = format!("SELECT password_hash FROM user_auth.users_list where email = '{}';", new_user.email);
+    let query = format!("SELECT password_hash FROM user_auth.users_list where email = '{}';", user.email);
     let query_result = state.query(query, ()).await.map_err(|err| { dbg!(err); AppError::InternalServerError})?;
     for row in query_result.rows().map_err(|err| { dbg!(err); AppError::InternalServerError})?{
         let val = row.into_typed::<(String<>,)>().map_err(|err| { dbg!(err); AppError::InternalServerError})?;
-        if verify_password(&new_user.password, val.0){
+        if verify_password(&user.password, val.0){
             let claims = Claims {
-                email: new_user.email.to_owned(),
+                email: user.email.to_owned(),
                 exp: get_timestamp(),
             };
             let token = encode(&Header::default(), &claims, &key.encoding).map_err(|err| { dbg!(err); AppError::InternalServerError})?;
