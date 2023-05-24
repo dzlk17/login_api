@@ -14,8 +14,8 @@ use crate::auth::{Claims, get_timestamp, Keys};
 /// *state - function get established session - connection to database
 /// *user - data passed by user during login
 /// 
-/// Function checks if email exists in database and if password is correct, and then returns proper StatusCode. 
-/// If the user manages to log in function returns tocken in response. 
+/// Function checks if email exists in database and if password is correct, and then returns Result with proper message or error. 
+/// If the user manages to log in function returns token. 
 pub async fn log(State(state): State<Arc<Session>>, Json(user): Json<User>) -> Result<Json<Value>, AppError>{
     let new_user: Json<User> = Json(user);
     // secret_key should be generate by server

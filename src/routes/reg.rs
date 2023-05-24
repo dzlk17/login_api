@@ -12,7 +12,7 @@ use crate::error::AppError;
 /// *state - function get established session - connection to database
 /// *user - data passed by user during registration
 /// 
-/// Function check if email exists in database, and if not, creates new user in database. Returns suitable StatusCode, depends on situation.
+/// Function check if email exists in database, and if not, creates new user in database. Returns Result with suitable message or error, depends on situation.
 pub async fn reg(State(state): State<Arc<Session>>, Json(user): Json<User>) -> Result<Json<Value>, AppError> {
     let new_user: Json<User> = Json(user);
     let query = format!("SELECT COUNT(*) FROM user_auth.users_list where email = '{}';", new_user.email);
