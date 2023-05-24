@@ -1,6 +1,7 @@
 mod result;
 mod db;
 mod routes;
+mod auth;
 
 use std::sync::Arc;
 use crate::result::Result;
