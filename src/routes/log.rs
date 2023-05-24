@@ -1,13 +1,9 @@
-#[path = "./user.rs"]
-mod user;
-
 use std::sync::Arc;
 use axum::{http::StatusCode, extract::State, Json, response::{Response, IntoResponse}};
 use dotenvy_macro::dotenv;
 use jsonwebtoken::{Header, encode};
 use scylla::Session;
-use user::{verify_password, User};
-
+use crate::routes::user::{verify_password, User};
 use crate::{auth::{Claims, get_timestamp, Keys}};
 
 ///Endpoint for user login

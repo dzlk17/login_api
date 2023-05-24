@@ -12,6 +12,3 @@ CREATE TABLE IF NOT EXISTS user_auth.users_list (
 );
 
 CREATE INDEX ON user_auth.users_list (email);
-
-INSERT INTO user_auth.users_list (user_id, email, password_hash)
-    VALUES (uuid(), 'jannowak@gmail.com', '1234');

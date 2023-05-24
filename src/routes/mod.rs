@@ -1,5 +1,6 @@
 mod reg;
 mod log;
+mod user;
 
 use std::sync::Arc;
 use axum::{Router, routing::post, http::Method};
