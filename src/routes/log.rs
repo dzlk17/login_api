@@ -20,7 +20,7 @@ pub async fn log(State(state): State<Arc<Session>>, Json(user): Json<User>) -> R
     // secret_key should be generate by server
     let secret_key = dotenv!("SECRET_KEY");
     let key = Keys::new(secret_key.as_bytes());
-    let query = format!("SELECT password_hash, FROM user_auth.users_list where email = '{}';", user.email);
+    let query = format!("SELECT password_hash FROM user_auth.users_list where email = '{}';", user.email);
     let query_result = state.query(query, ()).await.map_err(|err| { dbg!(err); AppError::InternalServerError})?;
     for row in query_result.rows().map_err(|err| { dbg!(err); AppError::InternalServerError})?{
         let val = row.into_typed::<(String<>,)>().map_err(|err| { dbg!(err); AppError::InternalServerError})?;
