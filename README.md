@@ -12,10 +12,10 @@
   3. Build the project:  
     `cargo build`   
   4. Create .env file with your data, for example:  
-    `SCYLLA_URI="127.0.0.1:9042"
-     DB_NAME="cassandra"
-     DB_PASSWORD="cassandra"
-     SECRET_KEY="mysecretkey"`
+    `SCYLLA_URI="127.0.0.1:9042"  
+     DB_NAME="cassandra"  
+     DB_PASSWORD="cassandra"  
+     SECRET_KEY="mysecretkey"`  
   5. Run docker with database:  
     `docker compose up -d`  
   6. Connect with database:  
