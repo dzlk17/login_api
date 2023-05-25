@@ -7,7 +7,8 @@ pub enum AppError {
     InternalServerError,
     UserAlreadyExists,
     UserNotExists,
-    WrongPassword
+    WrongPassword,
+    IncorrectEmail
 }
 
 impl IntoResponse for AppError {
@@ -20,7 +21,8 @@ impl IntoResponse for AppError {
             ),
             Self::UserAlreadyExists => (StatusCode::CONFLICT, "Email already exists in database"),
             Self::UserNotExists => (StatusCode::CONFLICT, "Email doesn't exist in database"),
-            Self::WrongPassword => (StatusCode::CONFLICT, "Wrong password")
+            Self::WrongPassword => (StatusCode::CONFLICT, "Wrong password"),
+            Self::IncorrectEmail => (StatusCode::BAD_REQUEST, "This is not email address")
         };
         (status, Json(json!({ "error_message": err_msg }))).into_response()
     }
